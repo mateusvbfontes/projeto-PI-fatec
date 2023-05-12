@@ -4,34 +4,54 @@ import './App.css'
 import Menu from './Menu.jsx'
 
 function App() {
-  const [codigo, setCodigo] = useState('')
-  const [nome, setNome] = useState('')
-  const [email, setEmail] = useState('')
-  const [user, setUser] = useState({
-    first_name: "",
-    last_name: "",
-    email: ""
+  const [codigo, setCodigo] = useState('1')
+  const [titulo, setTitulo] = useState('')
+  const [tipo, setTipo] = useState('')
+  const [cidade, setCidade] = useState('')
+  const [bairro, setBairro] = useState('')
+  const [venda, setVenda] = useState('')
+  const [aluguel, setAluguel] = useState('')
+  const [num_quartos, setNum_Quartos] = useState('')
+  const [area_m2, setArea_m2] = useState('')
+  const [valor, setValor] = useState('')
+  const [imovel, setImovel] = useState({
+    titulo: "",
+    tipo: "",
+    cidade: "",
+    bairro: "",
+    venda: "",
+    aluguel: "",
+    num_quartos: "",
+    area_m2: "",
+    valor: ""
   })
 
-  const getUser = (codigo) => {
-   fetch(`https://reqres.in/api/users/${codigo}`)
-   .then((resposta) => resposta.json())
-   .then((json) => {
-    if(json.data){
-      setUser(json.data)
-    }
-   })
+  const getImovel = (codigo) => {
+    fetch(`https://api-imobiliaria-xt97.onrender.com/imoveis/${codigo}`)
+      .then((resposta) => resposta.json())
+      .then((json) => {
+        // if (json.data) {
+        //   setImovel(json.data)
+        // }
+        console.log(json)
+        setImovel(json)
+      })
   }
 
+  // método chamado na renderização da página
   useEffect(() => {
-    getUser(codigo)
-  },[codigo])
-  
+    // if(codigo === ""){
+    //   codigo = 1
+    // }
+
+    getImovel(codigo)
+  }, [codigo])
+
   const alerta = () => {
     alert('Olá')
   }
 
-  const handleSubmit = () =>{
+  const handleSubmit = () => {
     e.preventDefault()
     console.log(nome)
     console.log(email)
@@ -39,16 +59,32 @@ function App() {
 
   return (
     <>
-      <Menu title="Site"/>     
-      <p onClick={alerta}>Dados </p>
-      <p>Nome: {user.first_name} {user.last_name}</p>
-      <p>Email: {user.email}</p>
+      <Menu title="Imobiliaria Projeto integrador" />
+      <div>
+        <p onClick={alerta}>Dados do imóvel:</p>
+        <p>Titulo: {imovel.titulo}</p>
+        <p>Tipo: {imovel.tipo}</p>
+        <p>Cidade: {imovel.cidade}</p>
+        <p>Bairro: {imovel.bairro}</p>
+        <p>Venda: {imovel.venda}</p>
+        <p>Aluguel: {imovel.aluguel}</p>
+        <p>Num quartos: {imovel.num_quartos}</p>
+        <p>Area: {imovel.area_m2}</p>
+        <p>Valor: {imovel.valor}</p>
+      </div>
       <hr />
       <form>
-      <input onChange={(e) => {setCodigo(e.target.value)}} type="text" placeholder='Digite o código' />
-      <input onChange={(e) => {setNome(e.target.value)}} type="text" placeholder='Digite seu nome' />
-      <input onChange={(e) => {setEmail(e.target.value)}} type="text" placeholder='Digite seu email' />
-      <button onClick={handleSubmit}>Cadastrar</button>
+        <input onChange={(e) => { setCodigo(e.target.value) }} type="text" placeholder='Digite o codigo' />
+        <input onChange={(e) => { setTitulo(e.target.value) }} type="text" placeholder='Digite o titulo' />
+        <input onChange={(e) => { setTipo(e.target.value) }} type="text" placeholder='Digite o tipo' />
+        <input onChange={(e) => { setCidade(e.target.value) }} type="text" placeholder='Digite a cidade' />
+        <input onChange={(e) => { setBairro(e.target.value) }} type="text" placeholder='Digite' />
+        <input onChange={(e) => { setVenda(e.target.value) }} type="text" placeholder='Digite' />
+        <input onChange={(e) => { setAluguel(e.target.value) }} type="text" placeholder='Digite' />
+        <input onChange={(e) => { setNum_Quartos(e.target.value) }} type="text" placeholder='Digite' />
+        <input onChange={(e) => { setArea_m2(e.target.value) }} type="text" placeholder='Digite' />
+        <input onChange={(e) => { setValor(e.target.value) }} type="text" placeholder='Digite' />
+        <button onClick={handleSubmit}>Cadastrar</button>
       </form>
     </>
   )
