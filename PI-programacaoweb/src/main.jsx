@@ -6,6 +6,7 @@ import './index.css'
 import Home from './pages/home'
 import About from './pages/about'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Create from './pages/create'
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: '/sobre',
     element: <About />
+  },
+  {
+    path: '/create',
+    element: <Create />
   }
 ])
 
