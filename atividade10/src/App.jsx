@@ -9,8 +9,8 @@ function App() {
   const [tipo, setTipo] = useState('')
   const [cidade, setCidade] = useState('')
   const [bairro, setBairro] = useState('')
-  const [venda, setVenda] = useState('')
-  const [aluguel, setAluguel] = useState('')
+  const [venda, setVenda] = useState(false)
+  const [aluguel, setAluguel] = useState(false)
   const [num_quartos, setNum_Quartos] = useState('')
   const [area_m2, setArea_m2] = useState('')
   const [valor, setValor] = useState('')
@@ -19,22 +19,22 @@ function App() {
     tipo: "",
     cidade: "",
     bairro: "",
-    venda: "",
-    aluguel: "",
+    venda: false,
+    aluguel: false,
     num_quartos: "",
-    area_m2: "",
-    valor: ""
+    area_m2: 0.00,
+    valor: 0.00
   })
 
   const getImovel = (codigo) => {
     fetch(`https://api-imobiliaria-xt97.onrender.com/imoveis/${codigo}`)
       .then((resposta) => resposta.json())
       .then((json) => {
-        // if (json.data) {
-        //   setImovel(json.data)
-        // }
-        console.log(json)
-        setImovel(json)
+        console.log(json)  
+              
+        if (json)
+          setImovel(json)    
+      
       })
   }
 
@@ -79,8 +79,8 @@ function App() {
         <input onChange={(e) => { setTipo(e.target.value) }} type="text" placeholder='Digite o tipo' />
         <input onChange={(e) => { setCidade(e.target.value) }} type="text" placeholder='Digite a cidade' />
         <input onChange={(e) => { setBairro(e.target.value) }} type="text" placeholder='Digite' />
-        <input onChange={(e) => { setVenda(e.target.value) }} type="text" placeholder='Digite' />
-        <input onChange={(e) => { setAluguel(e.target.value) }} type="text" placeholder='Digite' />
+        <input onChange={(e) => { setVenda(e.target.value) }} type="checkbox" placeholder='Digite' />
+        <input onChange={(e) => { setAluguel(e.target.value) }} type="checkbox" placeholder='Digite' />
         <input onChange={(e) => { setNum_Quartos(e.target.value) }} type="text" placeholder='Digite' />
         <input onChange={(e) => { setArea_m2(e.target.value) }} type="text" placeholder='Digite' />
         <input onChange={(e) => { setValor(e.target.value) }} type="text" placeholder='Digite' />
